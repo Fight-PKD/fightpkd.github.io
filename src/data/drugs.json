@@ -11,7 +11,7 @@
     "estimatedCompletion": "2027-12",
     "mechanism": "Undisclosed mechanism; IV infusion every 4 weeks for 92 weeks",
     "participants": 240,
-    "nctId": "",
+    "nctId": "NCT06902558",
     "notes": "Multicenter across ~100 sites in 11 countries. Primary endpoint: Total Kidney Volume change via MRI at Week 96."
   },
   {
@@ -26,7 +26,7 @@
     "estimatedCompletion": "2022-06",
     "mechanism": "Glucosylceramide synthase (GCS) inhibitor",
     "participants": 69,
-    "nctId": "",
+    "nctId": "NCT04908462",
     "notes": "Phase 1 in healthy volunteers completed June 2022. No Phase 2 registered yet."
   },
   {
@@ -41,7 +41,7 @@
     "estimatedCompletion": "2025-12",
     "mechanism": "Statin combined with acidosis correction to slow CKD progression in ADPKD",
     "participants": 30,
-    "nctId": "",
+    "nctId": "NCT05870007",
     "notes": "Open-label pilot study testing atorvastatin with or without sodium bicarbonate."
   },
   {
@@ -56,7 +56,7 @@
     "estimatedCompletion": "2027-01",
     "mechanism": "PAPPA-1 inhibitor — reduces local IGF signaling that drives cyst growth",
     "participants": 40,
-    "nctId": "",
+    "nctId": "NCT07228364",
     "notes": "Novel mechanism. SC/IV multiple ascending dose study. Sites in US, UK, China."
   },
   {
@@ -71,7 +71,7 @@
     "estimatedCompletion": "2028",
     "mechanism": "ACLY inhibitor / AMPK activator — FDA-approved for cholesterol, pro-drug activated in kidney/liver",
     "participants": 120,
-    "nctId": "",
+    "nctId": "NCT07282821",
     "notes": "Preclinical data showed cyst growth inhibition in ADPKD models. 180mg daily for 2 years."
   },
   {
@@ -86,7 +86,7 @@
     "estimatedCompletion": "2029",
     "mechanism": "SGLT2 inhibitor — first dedicated Phase 3 in ADPKD",
     "participants": 420,
-    "nctId": "",
+    "nctId": "NCT07280585",
     "notes": "10mg daily for 36 months vs placebo. Primary endpoint: chronic eGFR slope. Sites across Germany, Netherlands, Austria, Spain."
   },
   {
@@ -101,8 +101,8 @@
     "estimatedCompletion": "2027-05",
     "mechanism": "SGLT2 inhibitor — testing safety in ADPKD with or without tolvaptan co-administration",
     "participants": 134,
-    "nctId": "",
-    "notes": "Three parallel trials: EMPA-PKD (Phase 4, Hannover, n=44), SIDIA (Phase 2, Zurich, n=40, recruiting), Colorado Feasibility (Phase 2, n=50)."
+    "nctId": "NCT06391450",
+    "notes": "Three parallel trials: EMPA-PKD (NCT06391450, Hannover, n=44), SIDIA (NCT06435858, Zurich, n=40, recruiting), Colorado Feasibility (NCT05510115, n=50)."
   },
   {
     "id": "farabursen",
@@ -191,7 +191,7 @@
     "estimatedCompletion": "2028",
     "mechanism": "Dopamine D5 receptor agonist (transdermal patch) — restores endothelial mechanosensitivity and NO release",
     "participants": 0,
-    "nctId": "",
+    "nctId": "NCT06291116",
     "notes": "Prior IMPROVE-PKD study showed beneficial effects over 2 months. Addresses defective polycystin-mediated mechanotransduction."
   },
   {
