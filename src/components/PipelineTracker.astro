@@ -98,8 +98,12 @@ function getPhaseColor(phase: number) {
                   </div>
                 </div>
               ) : drug.phase === 1 ? (
-                <div class="w-full h-2.5 rounded-full" style={`background: ${completedColor.bg}`}>
-                  <div class="h-full rounded-full" style={`width: ${fillWidth}; background: ${completedColor.fill}`}></div>
+                <div class="w-full flex items-center">
+                  <div class="h-2.5 rounded-l-full" style={`width: ${fillWidth}; background: ${completedColor.fill}`}></div>
+                  <div class={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 -ml-1 ${drug.status === 'recruiting' ? 'animate-pulse' : ''}`} style={`background: ${completedColor.fill}`}>
+                    <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+                  </div>
+                  <div class="flex-1 h-2.5 rounded-r-full" style={`background: ${completedColor.bg}`}></div>
                 </div>
               ) : (
                 <div class="w-full h-1 bg-gray-100 rounded-full"></div>
@@ -118,8 +122,12 @@ function getPhaseColor(phase: number) {
                   </div>
                 </div>
               ) : drug.phase === 2 ? (
-                <div class="w-full h-2.5 rounded-full" style={`background: ${completedColor.bg}`}>
-                  <div class="h-full rounded-full" style={`width: ${fillWidth}; background: ${completedColor.fill}`}></div>
+                <div class="w-full flex items-center">
+                  <div class="h-2.5 rounded-l-full" style={`width: ${fillWidth}; background: ${completedColor.fill}`}></div>
+                  <div class={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 -ml-1 ${drug.status === 'recruiting' ? 'animate-pulse' : ''}`} style={`background: ${completedColor.fill}`}>
+                    <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+                  </div>
+                  <div class="flex-1 h-2.5 rounded-r-full" style={`background: ${completedColor.bg}`}></div>
                 </div>
               ) : (
                 <div class="w-full h-1 bg-gray-100 rounded-full"></div>
@@ -138,8 +146,12 @@ function getPhaseColor(phase: number) {
                   </div>
                 </div>
               ) : drug.phase === 3 ? (
-                <div class="w-full h-2.5 rounded-full" style={`background: ${completedColor.bg}`}>
-                  <div class="h-full rounded-full" style={`width: ${fillWidth}; background: ${completedColor.fill}`}></div>
+                <div class="w-full flex items-center">
+                  <div class="h-2.5 rounded-l-full" style={`width: ${fillWidth}; background: ${completedColor.fill}`}></div>
+                  <div class={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 -ml-1 ${drug.status === 'recruiting' ? 'animate-pulse' : ''}`} style={`background: ${completedColor.fill}`}>
+                    <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+                  </div>
+                  <div class="flex-1 h-2.5 rounded-r-full" style={`background: ${completedColor.bg}`}></div>
                 </div>
               ) : (
                 <div class="w-full h-1 bg-gray-100 rounded-full"></div>
