@@ -54,5 +54,6 @@ Before pushing updates, verify:
 ## Contact & Context
 
 - Maintained by Renato Molina
-- Repo: github.com/renatomolina/fightpkd
-- Deploy target: fightpkd.github.io
+- Repo: github.com/FightPKD/fightpkd.github.io
+- Custom domain: pkdcuretracker.com
+- Deploy target: GitHub Pages (via Actions on push to main)

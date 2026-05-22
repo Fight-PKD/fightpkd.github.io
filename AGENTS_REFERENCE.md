@@ -6,7 +6,12 @@ This file is a structured guide for AI agents to understand, update, and maintai
 
 ## Project Overview
 
-A static website (Astro + Tailwind CSS) deployed to GitHub Pages that tracks the drug development pipeline and therapeutic research for Polycystic Kidney Disease (PKD/ADPKD). Requires Node.js 22+.
+A static website (Astro 6.x + Tailwind CSS v4) deployed to GitHub Pages that tracks the drug development pipeline and therapeutic research for Polycystic Kidney Disease (PKD/ADPKD).
+
+- **Repo:** github.com/FightPKD/fightpkd.github.io
+- **Custom domain:** pkdcuretracker.com (Namecheap DNS → GitHub Pages)
+- **Requires:** Node.js 22+
+- **Tailwind:** Uses `@tailwindcss/vite` plugin (v4 style, no tailwind.config.mjs needed)
 
 ## Data Files
 
@@ -53,8 +58,10 @@ Non-drug therapeutic interventions studied for PKD.
   "institution": "string (lead institution)",
   "resultsSummary": "string (brief results or current status)",
   "link": "string (internal link like /keto, or empty)",
-  "publicationDate": "string (YYYY or YYYY-MM)",
-  "researchers": "string (key researchers)"
+  "publicationDate": "string (YYYY or YYYY-MM, empty if ongoing)",
+  "researchers": "string (key researchers)",
+  "nctId": "string (ClinicalTrials.gov NCT number, optional)",
+  "highlight": "boolean (optional, true = featured/pinned on therapies page)"
 }
 ```
 
@@ -136,6 +143,34 @@ When searching, use these alternative names:
 | Empagliflozin | EMPA-PKD, SIDIA, Jardiance |
 | Metformin | IMPEDE-PKD, TAME-PKD |
 
+## Pipeline Tracker Visual System
+
+The `PipelineTracker.astro` component uses a bar+circle design per phase. Key rules:
+
+**Completed phases** (drug.phase > current column): Green bar (#10b981) + green circle with white checkmark.
+
+**Current phase** (drug.phase === column): Partial-fill bar + colored circle with status icon. The fill percentage and color are determined by status:
+
+| Status | Bar Color | Fill % | Icon |
+|--------|-----------|--------|------|
+| recruiting | Green (#10b981) | 65% | Person with + |
+| not_yet_recruiting | Amber (#f59e0b) | 25% | Clock |
+| enrolling_by_invitation | Violet (#8b5cf6) | 35% | Envelope |
+| active_not_recruiting | Sky (#0ea5e9) | 50% | Arrow/chevron |
+| completed | Green (#10b981) | 100% | Checkmark |
+
+**Future phases** (drug.phase < column): Thin gray line.
+
+The mobile view uses the same system with slightly smaller elements. Both views must always be updated together.
+
+## Homepage Stat Cards
+
+The 4 stat cards on `index.astro` are clickable links:
+- **Drugs in Pipeline** → `/pipeline`
+- **Currently Recruiting** → `/pipeline?status=recruiting`
+- **Studies In Progress** → `/therapies`
+- **Studies Published in 2026** → PubMed external link (opens in new tab)
+
 ## How to Update Homepage Stats
 
 The homepage (`src/pages/index.astro`) displays 4 stat cards. Three are computed automatically from the JSON data. The fourth — "Studies Published in 2026" — must be updated manually:
@@ -191,4 +226,17 @@ npm run dev          # local development server
 npm run build        # build static site to ./dist/
 ```
 
-Deployment is automated via GitHub Actions (`.github/workflows/deploy.yml`) — push to `main` triggers a build and deploy to GitHub Pages.
+Deployment is automated via GitHub Actions (`.github/workflows/deploy.yml`) — push to `main` triggers a build and deploy to GitHub Pages. Node.js 22 is required in the workflow.
+
+## Static Assets
+
+- `public/logo.png` — Site logo displayed in the header (h-12). Source file is `logo-pkd.png` at project root. To update: copy `logo-pkd.png` to `public/logo.png`.
+- `public/favicon.svg` — SVG favicon (kidney + crosshair design, teal-to-blue gradient).
+- `public/CNAME` — Contains `pkdcuretracker.com` for GitHub Pages custom domain.
+
+## Important Implementation Notes
+
+- **Dynamic colors must use inline `style` attributes**, not Tailwind class interpolation. Astro templates don't support dynamic Tailwind classes (they get purged at build time).
+- **Desktop and mobile views are separate** in PipelineTracker.astro (`hidden md:block` and `md:hidden`). Any visual change must be applied to both.
+- **Homepage `lastUpdated` variable** (line ~9 in index.astro) should be updated whenever data changes.
+- **The PubMed URL year filter** in the stat card link must be updated each January (change `2026` to the new year in both the URL and the label text).
