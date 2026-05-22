@@ -80,6 +80,8 @@ Non-drug therapeutic interventions studied for PKD.
 
 5. **If enrollment status changes**, update `status` using the values listed above
 
+6. **Update the drug article** in `src/data/drug-articles.json` if significant news emerges (new results, acquisition, trial design change)
+
 ## How to Add a New Drug
 
 1. Search ClinicalTrials.gov for new PKD/ADPKD interventional studies:
@@ -202,22 +204,58 @@ src/
 │   ├── index.astro          (home page with stats)
 │   ├── pipeline.astro       (drug pipeline dashboard)
 │   ├── phases.astro         (interactive clinical trial phases explainer)
+│   ├── drugs/
+│   │   ├── index.astro      (drug articles index, grouped by phase)
+│   │   └── [id].astro       (dynamic route → individual drug article pages)
 │   ├── therapies.astro      (therapeutic research dashboard)
 │   └── keto.astro           (dedicated keto research page)
 ├── components/
-│   ├── DrugCard.astro       (renders one drug entry)
+│   ├── DrugCard.astro       (renders one drug entry, links to article page)
 │   ├── PipelineTracker.astro (phase overview visualization)
 │   ├── TherapyCard.astro    (renders one therapy entry)
 │   ├── Header.astro         (navigation)
 │   └── Footer.astro
 ├── data/
-│   ├── drugs.json           ← UPDATE THIS
+│   ├── drugs.json           ← UPDATE THIS (trial data)
+│   ├── drug-articles.json   ← UPDATE THIS (article content per drug)
 │   └── therapies.json       ← UPDATE THIS
 ├── layouts/
 │   └── BaseLayout.astro
 └── styles/
     └── global.css
 ```
+
+## Drug Articles System
+
+Each drug has an in-depth article page at `/drugs/{id}`. Articles are stored in `src/data/drug-articles.json` keyed by drug ID.
+
+**Article schema:**
+```json
+{
+  "drug-id": {
+    "headline": "string (article headline, one sentence)",
+    "summary": "string (2-3 sentence summary)",
+    "background": "string (context and history paragraph)",
+    "mechanism_detail": "string (detailed mechanism of action)",
+    "trial_detail": "string (clinical trial design, endpoints, sites)",
+    "potential": "string (why this drug is promising)",
+    "concerns": "string (limitations, risks, caveats)",
+    "tags": ["string array (categorical tags)"]
+  }
+}
+```
+
+**When to update articles:**
+- New trial results published → update `trial_detail` and potentially `potential`/`concerns`
+- Drug changes phase → update `trial_detail` and `headline`
+- Company acquisition/partnership → update `background`
+- New mechanism insights → update `mechanism_detail`
+
+**Adding a new drug article:**
+1. Add the drug to `drugs.json` first
+2. Add a corresponding entry in `drug-articles.json` with the full article
+3. The dynamic route `[id].astro` will automatically generate the page
+4. DrugCard in `/pipeline` automatically links to it via "Read article"
 
 ## Build & Deploy
 

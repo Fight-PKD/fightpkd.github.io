@@ -1,0 +1,205 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import drugs from '../../data/drugs.json';
+import articles from '../../data/drug-articles.json';
+
+export function getStaticPaths() {
+  return drugs.map((drug) => ({
+    params: { id: drug.id },
+    props: { drug },
+  }));
+}
+
+const { drug } = Astro.props;
+const article = (articles as Record<string, any>)[drug.id];
+
+const statusLabels: Record<string, string> = {
+  recruiting: 'Recruiting',
+  not_yet_recruiting: 'Not Yet Recruiting',
+  active_not_recruiting: 'Active, Not Recruiting',
+  completed: 'Completed',
+  enrolling_by_invitation: 'Enrolling by Invitation',
+};
+
+const statusColors: Record<string, { bg: string; text: string; dot: string }> = {
+  recruiting: { bg: 'bg-emerald-100', text: 'text-emerald-800', dot: 'bg-emerald-500' },
+  not_yet_recruiting: { bg: 'bg-amber-100', text: 'text-amber-800', dot: 'bg-amber-500' },
+  active_not_recruiting: { bg: 'bg-sky-100', text: 'text-sky-800', dot: 'bg-sky-500' },
+  completed: { bg: 'bg-gray-100', text: 'text-gray-700', dot: 'bg-gray-500' },
+  enrolling_by_invitation: { bg: 'bg-purple-100', text: 'text-purple-800', dot: 'bg-purple-500' },
+};
+
+const phaseColors: Record<number, string> = {
+  1: 'bg-teal-100 text-teal-800 border-teal-200',
+  2: 'bg-blue-100 text-blue-800 border-blue-200',
+  3: 'bg-indigo-100 text-indigo-800 border-indigo-200',
+};
+
+const sColor = statusColors[drug.status] || statusColors.completed;
+const pColor = phaseColors[drug.phase] || 'bg-gray-100 text-gray-800 border-gray-200';
+---
+
+<BaseLayout title={`${drug.name} — PKD Drug Research`} description={article?.summary || `${drug.name} clinical trial information for Polycystic Kidney Disease.`}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Breadcrumb -->
+    <nav class="mb-6 text-sm">
+      <ol class="flex items-center gap-2 text-gray-500">
+        <li><a href="/pipeline" class="hover:text-primary-600 transition-colors">Drug Pipeline</a></li>
+        <li><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/drugs" class="hover:text-primary-600 transition-colors">All Drugs</a></li>
+        <li><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-gray-900 font-medium">{drug.name}</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-8">
+      <div class="flex flex-wrap items-center gap-3 mb-3">
+        <span class={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${pColor}`}>
+          Phase {drug.phase}
+        </span>
+        <span class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${sColor.bg} ${sColor.text}`}>
+          <span class={`w-1.5 h-1.5 rounded-full ${sColor.dot}`}></span>
+          {statusLabels[drug.status] || drug.status}
+        </span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{drug.name}</h1>
+      {article && <p class="text-lg text-gray-600">{article.headline}</p>}
+    </header>
+
+    <!-- Quick facts card -->
+    <div class="bg-gray-50 rounded-xl border border-gray-200 p-5 mb-10">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div>
+          <p class="text-gray-500 mb-0.5">Sponsor</p>
+          <p class="font-medium text-gray-900">{drug.company}</p>
+        </div>
+        <div>
+          <p class="text-gray-500 mb-0.5">Trial Name</p>
+          <p class="font-medium text-gray-900">{drug.trialName}</p>
+        </div>
+        <div>
+          <p class="text-gray-500 mb-0.5">Start Date</p>
+          <p class="font-medium text-gray-900">{drug.startDate || 'TBD'}</p>
+        </div>
+        <div>
+          <p class="text-gray-500 mb-0.5">Est. Completion</p>
+          <p class="font-medium text-gray-900">{drug.estimatedCompletion || 'TBD'}</p>
+        </div>
+        <div>
+          <p class="text-gray-500 mb-0.5">Participants</p>
+          <p class="font-medium text-gray-900">{drug.participants > 0 ? drug.participants : 'TBD'}</p>
+        </div>
+        <div>
+          <p class="text-gray-500 mb-0.5">Location</p>
+          <p class="font-medium text-gray-900">{drug.companyLocation}</p>
+        </div>
+        <div>
+          <p class="text-gray-500 mb-0.5">NCT ID</p>
+          {drug.nctId ? (
+            <a href={`https://clinicaltrials.gov/study/${drug.nctId}`} target="_blank" rel="noopener noreferrer" class="font-medium text-primary-600 hover:text-primary-700">
+              {drug.nctId}
+            </a>
+          ) : (
+            <p class="font-medium text-gray-400">Not registered</p>
+          )}
+        </div>
+        <div>
+          <p class="text-gray-500 mb-0.5">Mechanism</p>
+          <p class="font-medium text-gray-900">{drug.mechanism.split('—')[0].trim()}</p>
+        </div>
+      </div>
+    </div>
+
+    {article ? (
+      <article class="space-y-10">
+        <!-- Summary -->
+        <section>
+          <div class="bg-primary-50 border border-primary-200 rounded-xl p-5">
+            <p class="text-sm text-primary-900 leading-relaxed">{article.summary}</p>
+          </div>
+        </section>
+
+        <!-- Background -->
+        <section>
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Background</h2>
+          <p class="text-gray-700 leading-relaxed">{article.background}</p>
+        </section>
+
+        <!-- How it works -->
+        <section>
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">How It Works</h2>
+          <p class="text-gray-700 leading-relaxed">{article.mechanism_detail}</p>
+        </section>
+
+        <!-- Trial details -->
+        <section>
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Clinical Trial Details</h2>
+          <p class="text-gray-700 leading-relaxed">{article.trial_detail}</p>
+        </section>
+
+        <!-- Potential -->
+        <section>
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Why It's Promising</h2>
+          <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p class="text-sm text-emerald-900 leading-relaxed">{article.potential}</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Concerns -->
+        <section>
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Limitations & Concerns</h2>
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+              <p class="text-sm text-amber-900 leading-relaxed">{article.concerns}</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tags -->
+        {article.tags && (
+          <section>
+            <div class="flex flex-wrap gap-2">
+              {article.tags.map((tag: string) => (
+                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
+      </article>
+    ) : (
+      <div class="bg-gray-50 rounded-xl border border-gray-200 p-8 text-center">
+        <p class="text-gray-500">Detailed article coming soon. See the trial details above for current information.</p>
+      </div>
+    )}
+
+    <!-- Bottom navigation -->
+    <div class="mt-12 pt-8 border-t border-gray-200 flex flex-col sm:flex-row gap-4 justify-between">
+      <a href="/drugs" class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        All Drug Articles
+      </a>
+      <a href="/pipeline" class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors">
+        View Pipeline Dashboard
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="mt-8 bg-amber-50 border border-amber-200 rounded-xl p-4">
+      <p class="text-xs text-amber-800">
+        <strong>Disclaimer:</strong> This information is for educational purposes only and is not medical advice. Clinical trial information is based on publicly available data from ClinicalTrials.gov and published research. Consult your nephrologist before making treatment decisions.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
