@@ -89,16 +89,17 @@ function getPhaseColor(phase: number) {
 
           {/* Phase 1 */}
           <div class="px-2">
-            <div class="relative h-4 flex items-center">
+            <div class="relative h-5 flex items-center">
               {drug.phase > 1 ? (
-                <div class="w-full h-2.5 rounded-full flex items-center" style={`background: ${completedColor.bg}`}>
-                  <div class="w-full h-full rounded-full flex items-center justify-center" style={`background: ${completedColor.fill}`}>
-                    <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <div class="w-full flex items-center">
+                  <div class="flex-1 h-2.5 rounded-l-full" style={`background: ${completedColor.fill}`}></div>
+                  <div class="w-5 h-5 rounded-full flex items-center justify-center shrink-0 -ml-1" style={`background: ${completedColor.fill}`}>
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                   </div>
                 </div>
               ) : drug.phase === 1 ? (
-                <div class="w-full h-2.5 rounded-full" style={`background: ${p1.bg}`}>
-                  <div class="h-full rounded-full" style={`width: ${fillWidth}; background: ${p1.fill}`}></div>
+                <div class="w-full h-2.5 rounded-full" style={`background: ${completedColor.bg}`}>
+                  <div class="h-full rounded-full" style={`width: ${fillWidth}; background: ${completedColor.fill}`}></div>
                 </div>
               ) : (
                 <div class="w-full h-1 bg-gray-100 rounded-full"></div>
@@ -108,16 +109,17 @@ function getPhaseColor(phase: number) {
 
           {/* Phase 2 */}
           <div class="px-2">
-            <div class="relative h-4 flex items-center">
+            <div class="relative h-5 flex items-center">
               {drug.phase > 2 ? (
-                <div class="w-full h-2.5 rounded-full flex items-center" style={`background: ${completedColor.bg}`}>
-                  <div class="w-full h-full rounded-full flex items-center justify-center" style={`background: ${completedColor.fill}`}>
-                    <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <div class="w-full flex items-center">
+                  <div class="flex-1 h-2.5 rounded-l-full" style={`background: ${completedColor.fill}`}></div>
+                  <div class="w-5 h-5 rounded-full flex items-center justify-center shrink-0 -ml-1" style={`background: ${completedColor.fill}`}>
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                   </div>
                 </div>
               ) : drug.phase === 2 ? (
-                <div class="w-full h-2.5 rounded-full" style={`background: ${p2.bg}`}>
-                  <div class="h-full rounded-full" style={`width: ${fillWidth}; background: ${p2.fill}`}></div>
+                <div class="w-full h-2.5 rounded-full" style={`background: ${completedColor.bg}`}>
+                  <div class="h-full rounded-full" style={`width: ${fillWidth}; background: ${completedColor.fill}`}></div>
                 </div>
               ) : (
                 <div class="w-full h-1 bg-gray-100 rounded-full"></div>
@@ -127,16 +129,17 @@ function getPhaseColor(phase: number) {
 
           {/* Phase 3 */}
           <div class="px-2">
-            <div class="relative h-4 flex items-center">
+            <div class="relative h-5 flex items-center">
               {drug.phase > 3 ? (
-                <div class="w-full h-2.5 rounded-full flex items-center" style={`background: ${completedColor.bg}`}>
-                  <div class="w-full h-full rounded-full flex items-center justify-center" style={`background: ${completedColor.fill}`}>
-                    <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <div class="w-full flex items-center">
+                  <div class="flex-1 h-2.5 rounded-l-full" style={`background: ${completedColor.fill}`}></div>
+                  <div class="w-5 h-5 rounded-full flex items-center justify-center shrink-0 -ml-1" style={`background: ${completedColor.fill}`}>
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                   </div>
                 </div>
               ) : drug.phase === 3 ? (
-                <div class="w-full h-2.5 rounded-full" style={`background: ${p3.bg}`}>
-                  <div class="h-full rounded-full" style={`width: ${fillWidth}; background: ${p3.fill}`}></div>
+                <div class="w-full h-2.5 rounded-full" style={`background: ${completedColor.bg}`}>
+                  <div class="h-full rounded-full" style={`width: ${fillWidth}; background: ${completedColor.fill}`}></div>
                 </div>
               ) : (
                 <div class="w-full h-1 bg-gray-100 rounded-full"></div>
