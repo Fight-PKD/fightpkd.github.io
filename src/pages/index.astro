@@ -43,7 +43,7 @@ const lastUpdated = 'May 21, 2026';
       <span class="text-xs text-gray-400">Last updated: {lastUpdated}</span>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
-      <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+      <a href="/pipeline" class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md hover:border-cyan-200 transition-all group">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
             <svg class="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,12 +52,12 @@ const lastUpdated = 'May 21, 2026';
           </div>
           <div>
             <p class="text-2xl font-bold text-gray-900">{totalDrugs}</p>
-            <p class="text-sm text-gray-500">Drugs in Pipeline</p>
+            <p class="text-sm text-gray-500 group-hover:text-cyan-600 transition-colors">Drugs in Pipeline</p>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+      <a href="/pipeline?status=recruiting" class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all group">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
             <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,12 +66,12 @@ const lastUpdated = 'May 21, 2026';
           </div>
           <div>
             <p class="text-2xl font-bold text-gray-900">{recruitingCount}</p>
-            <p class="text-sm text-gray-500">Currently Recruiting</p>
+            <p class="text-sm text-gray-500 group-hover:text-emerald-600 transition-colors">Currently Recruiting</p>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+      <a href="/therapies" class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md hover:border-purple-200 transition-all group">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
             <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,12 +80,12 @@ const lastUpdated = 'May 21, 2026';
           </div>
           <div>
             <p class="text-2xl font-bold text-gray-900">{ongoingStudies}</p>
-            <p class="text-sm text-gray-500">Studies In Progress</p>
+            <p class="text-sm text-gray-500 group-hover:text-purple-600 transition-colors">Studies In Progress</p>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+      <a href="https://pubmed.ncbi.nlm.nih.gov/?term=polycystic+kidney+disease&filter=dates.2026%2F1%2F1-2026%2F12%2F31" target="_blank" rel="noopener noreferrer" class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,10 +94,10 @@ const lastUpdated = 'May 21, 2026';
           </div>
           <div>
             <p class="text-2xl font-bold text-gray-900">2,730+</p>
-            <p class="text-sm text-gray-500">Studies Published in 2026</p>
+            <p class="text-sm text-gray-500 group-hover:text-blue-600 transition-colors">Studies Published in 2026 ↗</p>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   </section>
 
