@@ -1,5 +1,34 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import studies from '../data/keto-studies.json';
+
+const studyEntries = Object.entries(studies) as [string, any][];
+const clinicalTrials = studyEntries.filter(([_, s]) => s.type === 'clinical_trial');
+const observational = studyEntries.filter(([_, s]) => s.type === 'observational' || s.type === 'post_hoc');
+const preclinical = studyEntries.filter(([_, s]) => s.type === 'preclinical');
+
+const typeLabels: Record<string, string> = {
+  clinical_trial: 'Clinical Trial',
+  observational: 'Observational',
+  preclinical: 'Preclinical',
+  post_hoc: 'Post-Hoc Analysis',
+};
+const typeColors: Record<string, string> = {
+  clinical_trial: 'bg-blue-100 text-blue-800',
+  observational: 'bg-purple-100 text-purple-800',
+  preclinical: 'bg-teal-100 text-teal-800',
+  post_hoc: 'bg-indigo-100 text-indigo-800',
+};
+const statusLabels: Record<string, string> = {
+  completed: 'Completed',
+  interim: 'Interim Results',
+  recruiting: 'Recruiting',
+};
+const statusColors: Record<string, string> = {
+  completed: 'text-gray-600',
+  interim: 'text-amber-700',
+  recruiting: 'text-emerald-700',
+};
 ---
 
 <BaseLayout title="Keto & PKD Research" description="Comprehensive overview of ketogenic diet and KetoCitra research for Polycystic Kidney Disease.">
@@ -27,12 +56,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </a>
         </div>
 
-        <!-- Link to all research -->
+        <!-- Jump to studies -->
         <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-12 not-prose flex items-center justify-between">
-          <p class="text-sm text-gray-700"><strong>9 studies</strong> with dedicated research pages are now available.</p>
-          <a href="/research" class="text-sm font-medium text-primary-600 hover:text-primary-700 inline-flex items-center gap-1">
-            View all research
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <p class="text-sm text-gray-700"><strong>9 published studies</strong> with dedicated pages — click any card above or scroll to the full list below.</p>
+          <a href="#studies" class="text-sm font-medium text-primary-600 hover:text-primary-700 inline-flex items-center gap-1">
+            All studies ↓
           </a>
         </div>
 
@@ -333,6 +361,68 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </p>
         </section>
 
+        <!-- All Studies -->
+        <section id="studies" class="mb-12">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">All Published Studies</h2>
+
+          <h3 class="text-lg font-medium text-gray-900 mb-3 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
+            Clinical Trials
+          </h3>
+          <div class="space-y-3 mb-8">
+            {clinicalTrials.map(([id, study]) => (
+              <a href={`/research/${id}`} class="block bg-white border border-gray-200 rounded-lg p-4 hover:border-primary-300 hover:shadow-sm transition-all group">
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <span class={`px-2 py-0.5 rounded-full text-xs font-medium ${typeColors[study.type]}`}>{typeLabels[study.type]}</span>
+                  <span class={`text-xs font-medium ${statusColors[study.status]}`}>{statusLabels[study.status]}</span>
+                  <span class="text-xs text-gray-400">{study.date}</span>
+                </div>
+                <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">{study.title}</h4>
+                <p class="text-sm text-gray-600 mt-0.5">{study.subtitle}</p>
+                <p class="text-xs text-gray-500 mt-1">{study.institution} • {study.publication || study.presentation}</p>
+              </a>
+            ))}
+          </div>
+
+          <h3 class="text-lg font-medium text-gray-900 mb-3 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 bg-purple-500 rounded-full"></span>
+            Observational & Post-Hoc Analyses
+          </h3>
+          <div class="space-y-3 mb-8">
+            {observational.map(([id, study]) => (
+              <a href={`/research/${id}`} class="block bg-white border border-gray-200 rounded-lg p-4 hover:border-primary-300 hover:shadow-sm transition-all group">
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <span class={`px-2 py-0.5 rounded-full text-xs font-medium ${typeColors[study.type]}`}>{typeLabels[study.type]}</span>
+                  <span class={`text-xs font-medium ${statusColors[study.status]}`}>{statusLabels[study.status]}</span>
+                  <span class="text-xs text-gray-400">{study.date}</span>
+                </div>
+                <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">{study.title}</h4>
+                <p class="text-sm text-gray-600 mt-0.5">{study.subtitle}</p>
+                <p class="text-xs text-gray-500 mt-1">{study.institution} • {study.publication || study.presentation}</p>
+              </a>
+            ))}
+          </div>
+
+          <h3 class="text-lg font-medium text-gray-900 mb-3 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 bg-teal-500 rounded-full"></span>
+            Preclinical Research
+          </h3>
+          <div class="space-y-3">
+            {preclinical.map(([id, study]) => (
+              <a href={`/research/${id}`} class="block bg-white border border-gray-200 rounded-lg p-4 hover:border-primary-300 hover:shadow-sm transition-all group">
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <span class={`px-2 py-0.5 rounded-full text-xs font-medium ${typeColors[study.type]}`}>{typeLabels[study.type]}</span>
+                  <span class={`text-xs font-medium ${statusColors[study.status]}`}>{statusLabels[study.status]}</span>
+                  <span class="text-xs text-gray-400">{study.date}</span>
+                </div>
+                <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">{study.title}</h4>
+                <p class="text-sm text-gray-600 mt-0.5">{study.subtitle}</p>
+                <p class="text-xs text-gray-500 mt-1">{study.institution} • {study.publication || study.presentation}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+
         <!-- Key Researchers -->
         <section id="researchers" class="mb-12">
           <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Key Researchers</h2>
@@ -374,10 +464,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <li><a href="#ketocitra" class="text-gray-600 hover:text-primary-600 transition-colors">KetoCitra & Supplements</a></li>
             <li><a href="#preclinical" class="text-gray-600 hover:text-primary-600 transition-colors">Preclinical Evidence</a></li>
             <li><a href="#tre" class="text-gray-600 hover:text-primary-600 transition-colors">Time-Restricted Eating</a></li>
+            <li><a href="#studies" class="text-gray-600 hover:text-primary-600 transition-colors">All Studies (9)</a></li>
             <li><a href="#researchers" class="text-gray-600 hover:text-primary-600 transition-colors">Key Researchers</a></li>
-            <li class="pt-2 border-t border-gray-200">
-              <a href="/research" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">All Studies (9) →</a>
-            </li>
           </ul>
         </nav>
       </aside>
