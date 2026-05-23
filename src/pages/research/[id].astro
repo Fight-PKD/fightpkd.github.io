@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
+import studies from '../../data/keto-studies.json';
+
+export function getStaticPaths() {
+  return Object.entries(studies).map(([id, study]) => ({
+    params: { id },
+    props: { study, id },
+  }));
+}
+
+const { study, id } = Astro.props;
+
+const typeLabels: Record<string, string> = {
+  clinical_trial: 'Clinical Trial',
+  observational: 'Observational Study',
+  preclinical: 'Preclinical Research',
+  post_hoc: 'Post-Hoc Analysis',
+};
+
+const typeColors: Record<string, string> = {
+  clinical_trial: 'bg-blue-100 text-blue-800 border-blue-200',
+  observational: 'bg-purple-100 text-purple-800 border-purple-200',
+  preclinical: 'bg-teal-100 text-teal-800 border-teal-200',
+  post_hoc: 'bg-indigo-100 text-indigo-800 border-indigo-200',
+};
+
+const statusLabels: Record<string, string> = {
+  completed: 'Completed',
+  interim: 'Interim Results',
+  recruiting: 'Recruiting',
+};
+
+const statusColors: Record<string, { bg: string; text: string; dot: string }> = {
+  completed: { bg: 'bg-gray-100', text: 'text-gray-700', dot: 'bg-gray-500' },
+  interim: { bg: 'bg-amber-100', text: 'text-amber-800', dot: 'bg-amber-500' },
+  recruiting: { bg: 'bg-emerald-100', text: 'text-emerald-800', dot: 'bg-emerald-500' },
+};
+
+const sColor = statusColors[study.status] || statusColors.completed;
+const tColor = typeColors[study.type] || 'bg-gray-100 text-gray-800 border-gray-200';
+---
+
+<BaseLayout title={`${study.title} — Keto PKD Research`} description={study.subtitle}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Breadcrumb -->
+    <nav class="mb-6 text-sm">
+      <ol class="flex items-center gap-2 text-gray-500">
+        <li><a href="/keto" class="hover:text-primary-600 transition-colors">Keto & PKD</a></li>
+        <li><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/research" class="hover:text-primary-600 transition-colors">Research</a></li>
+        <li><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-gray-900 font-medium truncate max-w-[200px]">{study.title}</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-8">
+      <div class="flex flex-wrap items-center gap-3 mb-3">
+        <span class={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${tColor}`}>
+          {typeLabels[study.type] || study.type}
+        </span>
+        <span class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${sColor.bg} ${sColor.text}`}>
+          <span class={`w-1.5 h-1.5 rounded-full ${sColor.dot}`}></span>
+          {statusLabels[study.status] || study.status}
+        </span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{study.title}</h1>
+      <p class="text-lg text-gray-600">{study.subtitle}</p>
+    </header>
+
+    <!-- Quick facts -->
+    <div class="bg-gray-50 rounded-xl border border-gray-200 p-5 mb-10">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div>
+          <p class="text-gray-500 mb-0.5">Institution</p>
+          <p class="font-medium text-gray-900">{study.institution}</p>
+        </div>
+        <div>
+          <p class="text-gray-500 mb-0.5">Date</p>
+          <p class="font-medium text-gray-900">{study.date}</p>
+        </div>
+        {study.publication && (
+          <div>
+            <p class="text-gray-500 mb-0.5">Published In</p>
+            <p class="font-medium text-gray-900">{study.publication}</p>
+          </div>
+        )}
+        {study.presentation && (
+          <div>
+            <p class="text-gray-500 mb-0.5">Presented At</p>
+            <p class="font-medium text-gray-900">{study.presentation}</p>
+          </div>
+        )}
+        <div>
+          <p class="text-gray-500 mb-0.5">Authors</p>
+          <p class="font-medium text-gray-900">{study.authors.join(', ')}</p>
+        </div>
+        {study.doi && (
+          <div>
+            <p class="text-gray-500 mb-0.5">DOI</p>
+            <a href={`https://doi.org/${study.doi}`} target="_blank" rel="noopener noreferrer" class="font-medium text-primary-600 hover:text-primary-700 text-xs break-all">
+              {study.doi}
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <article class="space-y-10">
+      <!-- Study Design -->
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Study Design</h2>
+        <p class="text-gray-700 leading-relaxed">{study.design}</p>
+      </section>
+
+      <!-- Intervention -->
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Intervention</h2>
+        <p class="text-gray-700 leading-relaxed">{study.intervention}</p>
+      </section>
+
+      <!-- Results -->
+      {study.results.length > 0 && (
+        <section>
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Key Results</h2>
+          <div class="space-y-3">
+            {study.results.map((result: any) => (
+              <div class={`flex items-start gap-3 rounded-lg p-4 border ${result.positive ? 'bg-emerald-50 border-emerald-100' : 'bg-amber-50 border-amber-100'}`}>
+                <span class={`font-bold text-sm mt-0.5 ${result.positive ? 'text-emerald-600' : 'text-amber-600'}`}>
+                  {result.positive ? '+' : '~'}
+                </span>
+                <div>
+                  <p class="text-sm font-medium text-gray-900">{result.label}: {result.value}</p>
+                  <p class="text-sm text-gray-600 mt-0.5">{result.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Comparison -->
+      {study.comparison && (
+        <section>
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Context & Comparison</h2>
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+            <p class="text-sm text-blue-900 leading-relaxed">{study.comparison}</p>
+          </div>
+        </section>
+      )}
+
+      <!-- Conclusion -->
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Significance</h2>
+        <div class="bg-primary-50 border border-primary-200 rounded-xl p-5">
+          <p class="text-sm text-primary-900 leading-relaxed">{study.conclusion}</p>
+        </div>
+      </section>
+
+      <!-- Tags -->
+      {study.tags && (
+        <section>
+          <div class="flex flex-wrap gap-2">
+            {study.tags.map((tag: string) => (
+              <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
+    </article>
+
+    <!-- Bottom navigation -->
+    <div class="mt-12 pt-8 border-t border-gray-200 flex flex-col sm:flex-row gap-4 justify-between">
+      <a href="/research" class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        All Research
+      </a>
+      <a href="/keto" class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors">
+        Keto & PKD Overview
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="mt-8">
+      <NewsletterSignup compact />
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="mt-8 bg-amber-50 border border-amber-200 rounded-xl p-4">
+      <p class="text-xs text-amber-800">
+        <strong>Disclaimer:</strong> This information is for educational purposes only and is not medical advice. Study information is based on publicly available data from published research and conference presentations. Consult your nephrologist before making treatment decisions.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

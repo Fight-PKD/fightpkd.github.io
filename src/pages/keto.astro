@@ -13,18 +13,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         <!-- Summary Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12 not-prose">
-          <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-            <p class="text-sm font-medium text-emerald-800">KETO-ADPKD Trial</p>
-            <p class="text-xs text-emerald-600 mt-1">Completed 2023 — First RCT of keto diet in ADPKD</p>
-          </div>
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p class="text-sm font-medium text-blue-800">KetoCitra / Ren-Nu</p>
-            <p class="text-xs text-blue-600 mt-1">Observational data — 103 patients, eGFR +6.3%</p>
-          </div>
-          <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
-            <p class="text-sm font-medium text-purple-800">Preclinical Evidence</p>
-            <p class="text-xs text-purple-600 mt-1">BHB + Citrate synergy demonstrated in animal models</p>
-          </div>
+          <a href="/research/juntendo-12-month" class="bg-emerald-50 border border-emerald-200 rounded-lg p-4 hover:border-emerald-400 transition-colors">
+            <p class="text-sm font-medium text-emerald-800">Juntendo 12-Month (WCN 2026)</p>
+            <p class="text-xs text-emerald-600 mt-1">First trial to show kidney volume decrease in ADPKD</p>
+          </a>
+          <a href="/research/ren-nu-real-world" class="bg-blue-50 border border-blue-200 rounded-lg p-4 hover:border-blue-400 transition-colors">
+            <p class="text-sm font-medium text-blue-800">Ren-Nu Real-World (103 Patients)</p>
+            <p class="text-xs text-blue-600 mt-1">eGFR +6.3%, pain reduced, fewer medications</p>
+          </a>
+          <a href="/research/juntendo-3-month" class="bg-purple-50 border border-purple-200 rounded-lg p-4 hover:border-purple-400 transition-colors">
+            <p class="text-sm font-medium text-purple-800">Juntendo 3-Month Controlled</p>
+            <p class="text-xs text-purple-600 mt-1">TKV -5.01% vs +8.03% in controls (ASN 2025)</p>
+          </a>
+        </div>
+
+        <!-- Link to all research -->
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-12 not-prose flex items-center justify-between">
+          <p class="text-sm text-gray-700"><strong>9 studies</strong> with dedicated research pages are now available.</p>
+          <a href="/research" class="text-sm font-medium text-primary-600 hover:text-primary-700 inline-flex items-center gap-1">
+            View all research
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </a>
         </div>
 
         <!-- Scientific Rationale -->
@@ -54,6 +63,61 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </ul>
           <p class="text-gray-700">
             Initial preclinical work by Thomas Weimbs' lab at UCSB demonstrated that ketosis slowed cyst growth in animal models, leading to the first human trials.
+          </p>
+        </section>
+
+        <!-- Juntendo Breakthrough -->
+        <section id="juntendo" class="mb-12">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Juntendo University Trial (2025–2026)</h2>
+          <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4 mb-4">
+            <p class="text-sm text-emerald-900 font-medium">First intervention to demonstrate actual kidney volume decrease in ADPKD</p>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Led by Dr. Shigeo Horie at Juntendo University (Tokyo), this is the first clinical trial in Asia investigating ketogenic metabolic therapy for ADPKD. Results have been presented at ASN 2025 and WCN 2026.
+          </p>
+
+          <h3 class="text-lg font-medium text-gray-900 mt-6 mb-3">3-Month Results (ASN 2025)</h3>
+          <div class="space-y-2 mb-4">
+            <div class="flex items-start gap-3 bg-emerald-50 rounded-lg p-3 border border-emerald-100">
+              <span class="text-emerald-600 font-bold text-sm mt-0.5">+</span>
+              <p class="text-sm text-gray-700"><strong>TKV: -5.01%</strong> (intervention) vs <strong>+8.03%</strong> (control) — statistically significant</p>
+            </div>
+            <div class="flex items-start gap-3 bg-emerald-50 rounded-lg p-3 border border-emerald-100">
+              <span class="text-emerald-600 font-bold text-sm mt-0.5">+</span>
+              <p class="text-sm text-gray-700"><strong>eGFR: +0.59</strong> (intervention) vs <strong>-1.57 mL/min</strong> (control)</p>
+            </div>
+            <div class="flex items-start gap-3 bg-emerald-50 rounded-lg p-3 border border-emerald-100">
+              <span class="text-emerald-600 font-bold text-sm mt-0.5">+</span>
+              <p class="text-sm text-gray-700"><strong>100% adherence</strong> — zero participants discontinued</p>
+            </div>
+          </div>
+
+          <h3 class="text-lg font-medium text-gray-900 mt-6 mb-3">12-Month Results (WCN 2026)</h3>
+          <div class="space-y-2 mb-4">
+            <div class="flex items-start gap-3 bg-emerald-50 rounded-lg p-3 border border-emerald-100">
+              <span class="text-emerald-600 font-bold text-sm mt-0.5">+</span>
+              <p class="text-sm text-gray-700"><strong>TKV significantly decreased</strong> (p=0.026) in 7 completers — kidneys actually shrank over 12 months</p>
+            </div>
+            <div class="flex items-start gap-3 bg-emerald-50 rounded-lg p-3 border border-emerald-100">
+              <span class="text-emerald-600 font-bold text-sm mt-0.5">+</span>
+              <p class="text-sm text-gray-700"><strong>Liver volume significantly decreased</strong> at both 3 and 12 months</p>
+            </div>
+            <div class="flex items-start gap-3 bg-emerald-50 rounded-lg p-3 border border-emerald-100">
+              <span class="text-emerald-600 font-bold text-sm mt-0.5">+</span>
+              <p class="text-sm text-gray-700"><strong>Strong dose-response:</strong> ketone levels correlated with kidney shrinkage (ρ = -0.86, p=0.012)</p>
+            </div>
+            <div class="flex items-start gap-3 bg-emerald-50 rounded-lg p-3 border border-emerald-100">
+              <span class="text-emerald-600 font-bold text-sm mt-0.5">+</span>
+              <p class="text-sm text-gray-700"><strong>eGFR stabilized</strong> vs historical pre-trial decline of -5.6 mL/min/year</p>
+            </div>
+          </div>
+
+          <p class="text-gray-700 mb-3">
+            For comparison, tolvaptan (TEMPO 3:4) only slowed kidney growth from +5.51%/year to +2.80%/year — kidneys still grow. This is the first intervention where kidneys actually shrank.
+          </p>
+          <p class="text-sm text-gray-500">
+            Enrollment completed with &gt;50 participants plus a control group. Final results expected in approximately one year.
+            <a href="/research/juntendo-12-month" class="text-primary-600 hover:text-primary-700 font-medium ml-1">Read full analysis →</a>
           </p>
         </section>
 
@@ -304,12 +368,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <h2 class="text-sm font-semibold text-gray-900 mb-3">On this page</h2>
           <ul class="space-y-2 text-sm">
             <li><a href="#rationale" class="text-gray-600 hover:text-primary-600 transition-colors">Scientific Rationale</a></li>
+            <li><a href="#juntendo" class="text-gray-600 hover:text-primary-600 transition-colors font-medium text-primary-700">Juntendo Trial (NEW)</a></li>
             <li><a href="#keto-adpkd" class="text-gray-600 hover:text-primary-600 transition-colors">KETO-ADPKD Trial</a></li>
             <li><a href="#reset-pkd" class="text-gray-600 hover:text-primary-600 transition-colors">RESET-PKD Pilot</a></li>
             <li><a href="#ketocitra" class="text-gray-600 hover:text-primary-600 transition-colors">KetoCitra & Supplements</a></li>
             <li><a href="#preclinical" class="text-gray-600 hover:text-primary-600 transition-colors">Preclinical Evidence</a></li>
             <li><a href="#tre" class="text-gray-600 hover:text-primary-600 transition-colors">Time-Restricted Eating</a></li>
             <li><a href="#researchers" class="text-gray-600 hover:text-primary-600 transition-colors">Key Researchers</a></li>
+            <li class="pt-2 border-t border-gray-200">
+              <a href="/research" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">All Studies (9) →</a>
+            </li>
           </ul>
         </nav>
       </aside>

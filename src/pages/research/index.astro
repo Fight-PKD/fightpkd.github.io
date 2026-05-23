@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import studies from '../../data/keto-studies.json';
+
+const studyEntries = Object.entries(studies) as [string, any][];
+
+const clinicalTrials = studyEntries.filter(([_, s]) => s.type === 'clinical_trial');
+const observational = studyEntries.filter(([_, s]) => s.type === 'observational' || s.type === 'post_hoc');
+const preclinical = studyEntries.filter(([_, s]) => s.type === 'preclinical');
+
+const typeLabels: Record<string, string> = {
+  clinical_trial: 'Clinical Trial',
+  observational: 'Observational',
+  preclinical: 'Preclinical',
+  post_hoc: 'Post-Hoc Analysis',
+};
+
+const typeColors: Record<string, string> = {
+  clinical_trial: 'bg-blue-100 text-blue-800',
+  observational: 'bg-purple-100 text-purple-800',
+  preclinical: 'bg-teal-100 text-teal-800',
+  post_hoc: 'bg-indigo-100 text-indigo-800',
+};
+
+const statusLabels: Record<string, string> = {
+  completed: 'Completed',
+  interim: 'Interim Results',
+  recruiting: 'Recruiting',
+};
+
+const statusColors: Record<string, string> = {
+  completed: 'text-gray-600',
+  interim: 'text-amber-700',
+  recruiting: 'text-emerald-700',
+};
+---
+
+<BaseLayout title="Ketogenic Research for PKD" description="Published studies and clinical trials investigating ketogenic metabolic therapy for Polycystic Kidney Disease.">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Ketogenic Research for PKD</h1>
+      <p class="text-lg text-gray-600 max-w-3xl">
+        Published studies, clinical trials, and preclinical research investigating ketogenic metabolic therapy for Polycystic Kidney Disease.
+      </p>
+    </header>
+
+    <!-- Highlight banner -->
+    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 mb-10">
+      <div class="flex gap-3">
+        <svg class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>
+        <p class="text-sm text-emerald-900">
+          <strong>Latest:</strong> The Juntendo University 12-month interim results (WCN 2026) show <strong>statistically significant kidney volume decrease</strong> with ketogenic metabolic therapy — the first time kidney shrinkage has been demonstrated in any ADPKD intervention trial.
+        </p>
+      </div>
+    </div>
+
+    <!-- Clinical Trials -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-2 flex items-center gap-2">
+        <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
+        Clinical Trials
+      </h2>
+      <p class="text-sm text-gray-500 mb-5">Human interventional studies with measured endpoints</p>
+      <div class="space-y-4">
+        {clinicalTrials.map(([id, study]) => (
+          <a href={`/research/${id}`} class="block bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class={`px-2 py-0.5 rounded-full text-xs font-medium ${typeColors[study.type]}`}>
+                {typeLabels[study.type]}
+              </span>
+              <span class={`text-xs font-medium ${statusColors[study.status]}`}>
+                {statusLabels[study.status]}
+              </span>
+              <span class="text-xs text-gray-400">{study.date}</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary-600 transition-colors mb-1">{study.title}</h3>
+            <p class="text-sm text-gray-600 mb-2">{study.subtitle}</p>
+            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-500">
+              <span>{study.institution}</span>
+              {study.publication && <span class="hidden sm:inline">• {study.publication}</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Observational / Post-Hoc -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-2 flex items-center gap-2">
+        <span class="w-3 h-3 bg-purple-500 rounded-full"></span>
+        Observational & Post-Hoc Analyses
+      </h2>
+      <p class="text-sm text-gray-500 mb-5">Real-world data and re-analyses of existing trial data</p>
+      <div class="space-y-4">
+        {observational.map(([id, study]) => (
+          <a href={`/research/${id}`} class="block bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class={`px-2 py-0.5 rounded-full text-xs font-medium ${typeColors[study.type]}`}>
+                {typeLabels[study.type]}
+              </span>
+              <span class={`text-xs font-medium ${statusColors[study.status]}`}>
+                {statusLabels[study.status]}
+              </span>
+              <span class="text-xs text-gray-400">{study.date}</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary-600 transition-colors mb-1">{study.title}</h3>
+            <p class="text-sm text-gray-600 mb-2">{study.subtitle}</p>
+            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-500">
+              <span>{study.institution}</span>
+              {study.publication && <span class="hidden sm:inline">• {study.publication}</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Preclinical -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-2 flex items-center gap-2">
+        <span class="w-3 h-3 bg-teal-500 rounded-full"></span>
+        Preclinical Research
+      </h2>
+      <p class="text-sm text-gray-500 mb-5">Foundational animal model and mechanistic studies</p>
+      <div class="space-y-4">
+        {preclinical.map(([id, study]) => (
+          <a href={`/research/${id}`} class="block bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class={`px-2 py-0.5 rounded-full text-xs font-medium ${typeColors[study.type]}`}>
+                {typeLabels[study.type]}
+              </span>
+              <span class={`text-xs font-medium ${statusColors[study.status]}`}>
+                {statusLabels[study.status]}
+              </span>
+              <span class="text-xs text-gray-400">{study.date}</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary-600 transition-colors mb-1">{study.title}</h3>
+            <p class="text-sm text-gray-600 mb-2">{study.subtitle}</p>
+            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-500">
+              <span>{study.institution}</span>
+              {study.publication && <span class="hidden sm:inline">• {study.publication}</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Link to keto page -->
+    <div class="bg-primary-50 border border-primary-200 rounded-xl p-6 text-center">
+      <p class="text-sm text-primary-900 mb-3">For a comprehensive overview of how ketogenic interventions work for PKD:</p>
+      <a href="/keto" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors">
+        Read the Keto & PKD Overview
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</BaseLayout>
