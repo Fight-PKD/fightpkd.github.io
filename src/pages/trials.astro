@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import drugs from '../data/drugs.json';
+import therapies from '../data/therapies.json';
+import ketoStudies from '../data/keto-studies.json';
+
+const activeStatuses = ['recruiting', 'not_yet_recruiting', 'active_not_recruiting', 'enrolling_by_invitation'];
+
+const activeDrugs = drugs.filter(d => activeStatuses.includes(d.status));
+const activeTherapies = therapies.filter(t => t.status === 'in_progress');
+
+const ketoEntries = Object.entries(ketoStudies) as [string, any][];
+const activeKetoStudies = ketoEntries.filter(([_, s]) => s.status === 'recruiting' || s.status === 'interim');
+
+const totalActive = activeDrugs.length + activeTherapies.length + activeKetoStudies.length;
+
+const statusLabels: Record<string, string> = {
+  recruiting: 'Recruiting',
+  not_yet_recruiting: 'Not Yet Recruiting',
+  active_not_recruiting: 'Active, Not Recruiting',
+  enrolling_by_invitation: 'Enrolling by Invitation',
+  in_progress: 'In Progress',
+  interim: 'Interim Results',
+};
+
+const statusColors: Record<string, { bg: string; text: string; dot: string }> = {
+  recruiting: { bg: 'bg-emerald-100', text: 'text-emerald-800', dot: 'bg-emerald-500' },
+  not_yet_recruiting: { bg: 'bg-amber-100', text: 'text-amber-800', dot: 'bg-amber-500' },
+  active_not_recruiting: { bg: 'bg-sky-100', text: 'text-sky-800', dot: 'bg-sky-500' },
+  enrolling_by_invitation: { bg: 'bg-purple-100', text: 'text-purple-800', dot: 'bg-purple-500' },
+  in_progress: { bg: 'bg-blue-100', text: 'text-blue-800', dot: 'bg-blue-500' },
+  interim: { bg: 'bg-amber-100', text: 'text-amber-800', dot: 'bg-amber-500' },
+};
+---
+
+<BaseLayout title="Active Clinical Trials" description="All active clinical trials and studies currently in progress for Polycystic Kidney Disease — drugs, therapies, and metabolic interventions.">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Active Clinical Trials</h1>
+      <p class="text-lg text-gray-600">
+        {totalActive} clinical trials currently in progress for PKD — including drug candidates, metabolic interventions, and lifestyle studies.
+      </p>
+    </header>
+
+    <!-- Drug Trials -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-2 flex items-center gap-2">
+        <span class="w-3 h-3 bg-cyan-500 rounded-full"></span>
+        Drug Trials ({activeDrugs.length})
+      </h2>
+      <p class="text-sm text-gray-500 mb-5">Pharmaceutical compounds in clinical trials for PKD</p>
+      <div class="space-y-3">
+        {activeDrugs.map((drug) => {
+          const sColor = statusColors[drug.status] || statusColors.recruiting;
+          return (
+            <a href={`/drugs/${drug.id}`} class="block bg-white border border-gray-200 rounded-xl p-4 hover:border-primary-300 hover:shadow-md transition-all group">
+              <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">{drug.name}</h3>
+                  <p class="text-sm text-gray-500 truncate">{drug.company} • Phase {drug.phase} • {drug.trialName}</p>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <span class={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${sColor.bg} ${sColor.text}`}>
+                    <span class={`w-1.5 h-1.5 rounded-full ${sColor.dot}`}></span>
+                    {statusLabels[drug.status]}
+                  </span>
+                  {drug.nctId && (
+                    <span class="text-xs text-gray-400 hidden sm:inline">{drug.nctId}</span>
+                  )}
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Therapy/Lifestyle Trials -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-2 flex items-center gap-2">
+        <span class="w-3 h-3 bg-purple-500 rounded-full"></span>
+        Therapy & Lifestyle Trials ({activeTherapies.length})
+      </h2>
+      <p class="text-sm text-gray-500 mb-5">Non-drug interventional studies for PKD</p>
+      <div class="space-y-3">
+        {activeTherapies.map((therapy) => {
+          const sColor = statusColors['in_progress'];
+          return (
+            <a href={therapy.link || '/therapies'} class="block bg-white border border-gray-200 rounded-xl p-4 hover:border-primary-300 hover:shadow-md transition-all group">
+              <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">{therapy.name}</h3>
+                  <p class="text-sm text-gray-500 truncate">{therapy.institution} • {therapy.studyName}</p>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <span class={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${sColor.bg} ${sColor.text}`}>
+                    <span class={`w-1.5 h-1.5 rounded-full ${sColor.dot}`}></span>
+                    In Progress
+                  </span>
+                  {therapy.nctId && (
+                    <span class="text-xs text-gray-400 hidden sm:inline">{therapy.nctId}</span>
+                  )}
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Keto/Metabolic Trials with interim results -->
+    {activeKetoStudies.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-2 flex items-center gap-2">
+          <span class="w-3 h-3 bg-emerald-500 rounded-full"></span>
+          Metabolic Intervention Trials ({activeKetoStudies.length})
+        </h2>
+        <p class="text-sm text-gray-500 mb-5">Ketogenic and metabolic studies with ongoing enrollment or interim results</p>
+        <div class="space-y-3">
+          {activeKetoStudies.map(([id, study]) => {
+            const sColor = statusColors[study.status] || statusColors.interim;
+            return (
+              <a href={`/research/${id}`} class="block bg-white border border-gray-200 rounded-xl p-4 hover:border-primary-300 hover:shadow-md transition-all group">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                  <div class="flex-1 min-w-0">
+                    <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">{study.title}</h3>
+                    <p class="text-sm text-gray-500 truncate">{study.institution} • {study.authors[0]}</p>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <span class={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${sColor.bg} ${sColor.text}`}>
+                      <span class={`w-1.5 h-1.5 rounded-full ${sColor.dot}`}></span>
+                      {statusLabels[study.status] || study.status}
+                    </span>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <!-- CTA -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+      <a href="/pipeline" class="bg-primary-50 border border-primary-200 rounded-xl p-5 hover:border-primary-400 transition-colors text-center">
+        <p class="font-medium text-primary-900">View Drug Pipeline</p>
+        <p class="text-xs text-primary-600 mt-1">Phase visualization and detailed drug cards</p>
+      </a>
+      <a href="/research" class="bg-accent-50 border border-accent-200 rounded-xl p-5 hover:border-accent-400 transition-colors text-center">
+        <p class="font-medium text-accent-900">View Keto Research</p>
+        <p class="text-xs text-accent-600 mt-1">All published metabolic intervention studies</p>
+      </a>
+    </div>
+  </div>
+</BaseLayout>

@@ -4,9 +4,15 @@ import drugs from '../data/drugs.json';
 import therapies from '../data/therapies.json';
 import ketoStudies from '../data/keto-studies.json';
 
+const activeStatuses = ['recruiting', 'not_yet_recruiting', 'active_not_recruiting', 'enrolling_by_invitation'];
+const activeDrugs = drugs.filter(d => activeStatuses.includes(d.status)).length;
+const activeTherapies = therapies.filter(t => t.status === 'in_progress').length;
+const ketoEntries = Object.entries(ketoStudies) as [string, any][];
+const activeKetoStudies = ketoEntries.filter(([_, s]) => s.status === 'recruiting' || s.status === 'interim').length;
+const totalActiveTrials = activeDrugs + activeTherapies + activeKetoStudies;
+
 const recruitingCount = drugs.filter(d => d.status === 'recruiting').length;
 const totalDrugs = drugs.length;
-const ongoingStudies = therapies.filter(t => t.status === 'in_progress').length;
 const ketoStudyCount = Object.keys(ketoStudies).length;
 const lastUpdated = 'May 23, 2026';
 ---
@@ -73,7 +79,7 @@ const lastUpdated = 'May 23, 2026';
         </div>
       </a>
 
-      <a href="/therapies" class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md hover:border-purple-200 transition-all group">
+      <a href="/trials" class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md hover:border-purple-200 transition-all group">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
             <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,8 +87,8 @@ const lastUpdated = 'May 23, 2026';
             </svg>
           </div>
           <div>
-            <p class="text-2xl font-bold text-gray-900">{ongoingStudies}</p>
-            <p class="text-sm text-gray-500 group-hover:text-purple-600 transition-colors">Studies In Progress</p>
+            <p class="text-2xl font-bold text-gray-900">{totalActiveTrials}</p>
+            <p class="text-sm text-gray-500 group-hover:text-purple-600 transition-colors">Clinical Trials In Progress</p>
           </div>
         </div>
       </a>
