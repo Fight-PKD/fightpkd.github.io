@@ -194,5 +194,69 @@
     "comparison": "While this study is in diabetic CKD (not PKD specifically), it demonstrates that sustained nutritional ketosis preserves and improves kidney function across CKD populations. The dose-response relationship mirrors findings in ADPKD trials.",
     "conclusion": "This large dataset (262 patients) from a non-PKD population independently confirms that sustained ketosis is renoprotective. The finding that patients maintaining ketosis gained +3.38 mL/min/year in eGFR (vs. the expected -2 to -3 mL/min/year decline in CKD) is remarkable. Combined with ADPKD-specific data showing ketosis reduces cyst growth, this supports a dual mechanism: ketosis may both slow cyst-driven damage AND provide general renoprotection.",
     "tags": ["clinical trial", "diabetic CKD", "262 patients", "eGFR improvement", "dose-response", "Virta Health"]
+  },
+  "ohio-state-volek": {
+    "title": "Ohio State Well-Formulated Ketogenic Diet Trial",
+    "subtitle": "52-week keto diet with continuous ketone monitoring and MRI imaging in high-risk ADPKD",
+    "type": "clinical_trial",
+    "status": "recruiting",
+    "date": "June 2024",
+    "presentation": "",
+    "publication": "",
+    "doi": "",
+    "authors": ["Jeff Volek", "Madison L. Kackley"],
+    "institution": "Ohio State University Wexner Medical Center",
+    "design": "Single-arm, open-label interventional trial (NCT06325644). 20 ADPKD patients at high risk for rapid progression (Mayo Class 1C-1E). Funded by the U.S. Department of Defense (CDMRP-PR212399-G). Assessments at baseline, 6 months, and 12 months including MRI for kidney volume and GFR.",
+    "intervention": "Well-formulated ketogenic diet for 52 weeks targeting blood ketones >0.5 mM (<50g/day carbohydrate, ~1.5 g/kg protein, remainder fat from whole foods). Monitoring includes daily finger-stick ketones (KetoMojo), continuous glucose/ketone monitor (CGM/CKM replaced every 2 weeks), blood draws, DEXA scanning, and MRI.",
+    "results": [],
+    "comparison": "First long-duration (1 year) ketogenic diet trial for ADPKD with continuous ketone monitoring. Unlike the Juntendo trial which uses KetoCitra supplementation, this study tests diet alone without exogenous ketone support.",
+    "conclusion": "Led by Jeff Volek — one of the world's leading ketogenic diet researchers — this DoD-funded trial represents the first U.S.-based, year-long ketogenic intervention in ADPKD. The use of continuous ketone monitoring and MRI-based htTKV measurement will provide the most detailed longitudinal data on ketosis levels and kidney volume change. Primary completion estimated December 2026.",
+    "tags": ["clinical trial", "recruiting", "Ohio State", "Jeff Volek", "52-week", "DoD-funded", "continuous monitoring"]
+  },
+  "systematic-review-2026": {
+    "title": "Systematic Review: Ketogenic Dietary Interventions for ADPKD",
+    "subtitle": "First comprehensive synthesis of all human keto-ADPKD studies confirms metabolic feasibility, calls for longer trials",
+    "type": "post_hoc",
+    "status": "completed",
+    "date": "March 2026",
+    "presentation": "",
+    "publication": "Metabolism Open",
+    "doi": "10.1016/j.metop.2026.100447",
+    "authors": ["Maria G. Grammatikopoulou", "Arriana Gkouvi", "Kalliopi K. Gkouskou", "Dimitrios Poulimeneas", "Christina Tsigalou", "Theodoros Eleftheriadis", "Odysseas Androutsos", "Christos Cholevas", "Ioannis Stefanidis", "Maria Dalamaga", "Dimitrios G. Goulis", "Dimitrios P. Bogdanos"],
+    "institution": "University of Thessaly, Greece",
+    "design": "Systematic review using the SWiM (Synthesis Without Meta-Analysis) approach. Searched three databases for human studies of ketogenic dietary interventions in ADPKD. Risk of bias assessed using Cochrane RoB 2.0, Newcastle-Ottawa scale, and ROBINS-I tool.",
+    "intervention": "Reviewed 8 studies employing ketogenic diets, intermittent fasting, and time-restricted feeding in ADPKD patients.",
+    "results": [
+      {"label": "Weight/Anthropometrics", "value": "Consistently improved", "detail": "KDIs linked to weight loss and improved anthropometric profiles across 9 of the reviewed interventions.", "positive": true},
+      {"label": "Blood Pressure", "value": "Unchanged in most", "detail": "Blood pressure remained stable in 5 interventions. Lipids (cholesterol, HDL, LDL, triglycerides) also unchanged — confirming safety.", "positive": true},
+      {"label": "eGFR", "value": "Improved or stable", "detail": "eGFR was higher in 4 interventions or stable after intervention. No studies showed eGFR decline.", "positive": true},
+      {"label": "htTKV", "value": "Inconsistent", "detail": "Evidence for renal structural change was inconsistent, limited by short intervention duration and small sample sizes.", "positive": false}
+    ],
+    "comparison": "This is the first formal systematic review of all ketogenic interventions in ADPKD, synthesizing evidence from KETO-ADPKD, RESET-PKD, Juntendo, Ren-Nu, TRE, and other studies.",
+    "conclusion": "The review confirms that ketogenic interventions are metabolically feasible and safe in ADPKD — no adverse effects on lipids, kidney function, or blood pressure. Current evidence supports metabolic feasibility more consistently than renal disease modification. The authors emphasize that longer trials with appropriate comparators are needed before KDIs can be formally recommended. Notably, the review was published before the Juntendo 12-month data (WCN 2026) which subsequently demonstrated significant TKV reduction.",
+    "tags": ["systematic review", "meta-analysis", "Greece", "2026", "evidence synthesis", "safety confirmed"]
+  },
+  "nutritional-adequacy-2026": {
+    "title": "Nutritional Adequacy of Ketogenic Diets for ADPKD",
+    "subtitle": "Well-planned keto diets can meet ADPKD nutritional requirements with minimal supplementation",
+    "type": "observational",
+    "status": "completed",
+    "date": "April 2026",
+    "presentation": "",
+    "publication": "Journal of Nephrology",
+    "doi": "10.1093/joneph/aajaf053",
+    "authors": ["Imogen Croucher", "Wing Yung Stacy Mok", "Anna Rangan", "Jessica Dawson"],
+    "institution": "University of Sydney, Australia",
+    "design": "Nutritional analysis and meal plan development study. Developed an ADPKD-specific ketogenic meal plan (PKD-Keto) plus modified versions targeting nephrolithiasis risk and hyperkalemia risk. Compared nutritional adequacy against a reference CKD diet and dietary intake targets. Included cost analysis.",
+    "intervention": "PKD-Keto meal plans designed following ADPKD, CKD, and healthy eating guidelines. Macronutrient targets: 10% carbohydrate, 75% fat, 15% protein of total caloric intake.",
+    "results": [
+      {"label": "Macronutrients", "value": "Targets met", "detail": "All caloric and macronutrient targets were achieved in the PKD-Keto meal plans.", "positive": true},
+      {"label": "Micronutrients", "value": "Mostly adequate", "detail": "All micronutrients adequate except iodine (all plans), iron (females 19-50), and zinc (males) — easily addressed with supplementation.", "positive": true},
+      {"label": "Cost", "value": "Slightly higher", "detail": "PKD-Keto plans slightly higher cost than reference CKD diet, but no difference based on socioeconomic area.", "positive": true},
+      {"label": "Safety Modifications", "value": "Achievable", "detail": "Modified versions successfully addressed kidney stone risk (low oxalate) and hyperkalemia risk while maintaining ketogenic ratios.", "positive": true}
+    ],
+    "comparison": "Addresses a key clinical concern: whether ketogenic diets can meet the unique nutritional requirements of ADPKD patients who may have reduced kidney function, stone risk, and electrolyte sensitivities.",
+    "conclusion": "This study from the University of Sydney demonstrates that a well-planned ketogenic diet tailored for ADPKD is nutritionally adequate and can be safely adapted for patients with kidney stone or hyperkalemia risk. The authors recommend supplementation of iodine, iron, and zinc for long-term use. This practical guidance supports the clinical implementation of ketogenic interventions being studied in ongoing trials.",
+    "tags": ["nutritional adequacy", "meal planning", "Australia", "2026", "practical guidance", "safety"]
   }
 }
